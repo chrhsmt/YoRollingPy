@@ -7,6 +7,7 @@ import os
 import time
 
 import settings
+import cv
 import twitter
 
 CK = settings.CONSUMER_KEY    # Consumer Key
@@ -16,7 +17,7 @@ AS = settings.ACCESS_SECRET   # Accesss Token Secert
 
 auth = twitter.OAuth(consumer_key=CK, consumer_secret=CS, token=AT, token_secret=AS)
 
-picsDir = "/Users/chihiro/src/skirt/pics"
+picsDir = settings.YOROLLING_PATH
 
 # ツイート本文
 #message = "養老院 #養老院"
@@ -53,11 +54,12 @@ class ChangeHandler(FileSystemEventHandler):
             break
         with open(path, "rb") as image_file:
             image_data=image_file.read()
-        message = "#" + " #".join(messages)
+        description = cv.analyze(path)
+        message = description + " #" + " #".join(messages)
         pic_upload = twitter.Twitter(domain = 'upload.twitter.com',auth = auth)
         id_img1 = pic_upload.media.upload(media = image_data)["media_id_string"]
+        print("- tweet -")
         t.statuses.update(status = message, media_ids = ",".join([id_img1]))
-
 
 if __name__ in '__main__':
     print("-- start --")

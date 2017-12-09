@@ -10,3 +10,6 @@ ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
 ACCESS_SECRET = os.environ.get("ACCESS_SECRET")
 CONSUMER_KEY = os.environ.get("CONSUMER_KEY")    # Consumer Key
 CONSUMER_SECRET = os.environ.get("CONSUMER_SECRET") # Consumer Secret
+
+AZKEY = os.environ.get("AZKEY")
+YOROLLING_PATH = os.environ.get("YOROLLING_PATH")
