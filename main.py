@@ -56,6 +56,8 @@ class ChangeHandler(FileSystemEventHandler):
             image_data=image_file.read()
         description = cv.analyze(path)
         message = description + " #" + " #".join(messages)
+        if len(message) >= 140:
+            message = message[0:139]
         pic_upload = twitter.Twitter(domain = 'upload.twitter.com',auth = auth)
         id_img1 = pic_upload.media.upload(media = image_data)["media_id_string"]
         print("- tweet -")
